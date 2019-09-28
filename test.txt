@@ -1,0 +1,30 @@
+mqsisetdbparms IB9NODE -n <dsn> -u <user> -p '<password>' 
+mqsisetdbparms IB9NODE -n dsn::DAN -u <user> -p '<password>' 
+mqsisetdbparms IB9NODE -n dsn::<dsn> -u <user> -p '<password>' 
+# Create JDBCProvider
+mqsideleteconfigurableservice IB9NODE -c JDBCProviders -o JDBCProviderServiceName 
+mqsicvp -n FEMDB -u db2admin -p db2admin
+
+
+
+
+
+SET QUERY = 'INSERT INTO ESBUSER.CHL_AIRTIMETOPUP(SN,MSISDN,ACCTNO,CIFID,ENTRYDATE,CHANNELID,BILLERID,BILLERNAME,COUNTRYCODE,ATTRIBUTES,SOLID,TXNAMT) VALUES(?,?,?,?,sysdate,?,?,?,?,?,?,?)';
+		
+		
+	SET DETAILS.VALUE[] = PASSTHRU(QUERY TO Database.{DSN} VALUES(Environment.Variables.COUNTRYCODE));
+
+
+
+SET DETAILS = PASSTHRU(QUERY TO Database.{DSN} VALUES 
+
+
+
+(Environment.Variables.SESSIONID,Environment.Variables.MSISDN,Environment.Variables.ACCTNO,Environment.Variables.CIFID,Environment.Variables.CHANNELID,Environment.Variables.BILLERID,Environment.Variables.BILERNAME,Environment.Variables.COUNTRYCODE_3,Environment.Variables.ATTRIBUTES,Environment.Variables.SOLID,Environment.Variables.TOTALAMOUNT_WITHOUT_0));
+--		
+
+	
+		OutputRoot.SOAP.Body.ns:getfileinfosRes.CONSUMER_ID= 
+		OutputRoot.SOAP.Body.ns:getfileinfosRes.CREATION_DATETIME=
+		OutputRoot.SOAP.Body.ns:getfileinfosRes.FileName=
+		OutputRoot.SOAP.Body.ns:getfileinfosRes.FileNumber=
