@@ -1,3 +1,40 @@
+https://github.com/MbqIIB/Diplom/blob/a303b617138bdae5aaa77751a7a8a0eb0acb7ec3/dp/ESBGW.CF/files/local/allMQFunction.xsl
+
+https://github.com/yschiang/dp-samples/blob/0cd27cdf93e2b21736806436178c9aa6964c0d1c/mq-put-retrievemsgid.xsl
+
+
+ <dp:url-open target="dpmq://QMGR/?RequestQueue=Q1.REPLY;ParseHeaders=true"  response="responsecode-ignore">
+<dp:url-open target="dpmq://QMGR/?RequestQueue=Q1.REPLY;ParseHeaders=false"  response="responsecode-ignore">	
+<dp:url-open target="{$vMqTarget}" response="binaryNode" http-headers="$vMQHeader">
+response="responsecode-ignore" content-type="application/xml" http-method="'post'">
+response="ignore |
+  http-method="get | patch | post | put | delete | head"
+  
+  <dp:url-open target="{$vMqTarget}" response="responsecode-ignore" http-headers="$vMQHeader">
+  
+  3.
+  <xsl:variable name="MQMD_AGL_REQ_HEADERS">
+                                    <dp:serialize select="$MQMD_AGL_HEADERS" omit-xml-decl="yes"/>
+                                </xsl:variable>
+                                
+                                <dp:set-request-header name="'MQMD'" values="$MQMD_AGL_REQ_HEADERS"/>
+                                
+                                <!-- Invoke URL Open to place the data to Wait Queue -->
+                                <xsl:variable name="mqPutAGL">
+                                    <dp:url-open target="dpmq://MWMQ_DEV/?RequestQueue=MW.DP.RIHX_AGL.REQ.QL" response="responsecode-ignore" content-type="application/xml" http-method="'post'">
+                                        <xsl:copy-of select="$inputAGLRequest"/>
+                                    </dp:url-open>
+                                </xsl:variable>   
+	    
+4.	    
+	    
+	    
+	    
+	    
+	    
+	    
+-------
+
 mqsisetdbparms IB9NODE -n <dsn> -u <user> -p '<password>' 
 mqsisetdbparms IB9NODE -n dsn::DAN -u <user> -p '<password>' 
 mqsisetdbparms IB9NODE -n dsn::<dsn> -u <user> -p '<password>' 
