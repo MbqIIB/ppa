@@ -1,7 +1,7 @@
 https://github.com/MbqIIB/Diplom/blob/a303b617138bdae5aaa77751a7a8a0eb0acb7ec3/dp/ESBGW.CF/files/local/allMQFunction.xsl
 
 https://github.com/yschiang/dp-samples/blob/0cd27cdf93e2b21736806436178c9aa6964c0d1c/mq-put-retrievemsgid.xsl
-
+https://github.com/shabharish/DP/blob/6a5062a0c57c943ab206dcc18b6c54d6b7b227b8/RIHX_Check_Transform.xsl
 
  <dp:url-open target="dpmq://QMGR/?RequestQueue=Q1.REPLY;ParseHeaders=true"  response="responsecode-ignore">
 <dp:url-open target="dpmq://QMGR/?RequestQueue=Q1.REPLY;ParseHeaders=false"  response="responsecode-ignore">	
