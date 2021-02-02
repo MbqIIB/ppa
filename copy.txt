@@ -27,10 +27,28 @@ response="ignore |
                                 </xsl:variable>   
 	    
 4.	    
+	<xsl:variable name="mqPutAGL">
+                                    <dp:url-open target="dpmq://MWMQ_DEV/?RequestQueue=MW.DP.RIHX_AGL.REQ.QL" response="responsecode-ignore" content-type="application/xml" http-method="'post'">
+                                        <xsl:copy-of select="$inputAGLRequest"/>
+                                    </dp:url-open>
+                                </xsl:variable>       
+6.
+
 	    
-	    
-	    
-	    
+	    <xsl:if test="$mqPutAGL/url-open/responsecode/text()!= '0'">
+                                    <!-- Alert Notification -->
+                                    <xsl:message dp:priority="alert">DataPower detected Error while placing RIHX Health Queue MW.DP.RIHX_AGL.REQ.QL</xsl:message>
+                                    <dp:set-variable name="'var://context/local/bFaultAGL'" value="'true'"/>
+                                    <dp:set-variable name="'var://context/local/bCriticalTAI'" value="'true'"/>
+                                    <!-- <dp:reject></dp:reject> -->
+                                </xsl:if>
+                                <!--  fetching the responseCode  -->
+                                <xsl:variable name="responseCode" select="$mqPutAGL//*[local-name()='responsecode']"/>
+                                <xsl:choose>
+                                    <xsl:when test="$responseCode='0'">
+                                        <xsl:variable name="aglResult"><xsl:value-of select="$mqPutAGL//*[local-name()='RIHXSearch_SUBMITS_REQUEST_RECORD']"/></xsl:variable>
+                                    </xsl:when>
+                                </xsl:choose>
 	    
 	    
 -------
