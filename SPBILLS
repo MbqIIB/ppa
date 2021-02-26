@@ -22,6 +22,25 @@ Operation – confirmBill
 
 
 -----
+
+
+Invalid Close Date
+Invalid Payment Status effective date
+Invalid Payment Status Current Ammount
+Invalid Service Type
+Invalid Category Code
+Account Deactive
+Upload error
+Bill already exists
+Invalid Bill Status Code
+Bill Cycle does not exist
+Invalid Expiry Date
+Invalid active normal bill
+Payment completion failed
+
+
+
+---------
  PmtId element is to be
   <xs:enumeration value="SPTN"/>
       <xs:enumeration value="BLRPTN"/>
