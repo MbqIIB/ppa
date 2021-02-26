@@ -12,6 +12,16 @@ Cleanup expired bills
 Cleanup validated but not confirmed payments
 
 --------
+bill upload  operations
+
+Operation – uploadBill	3
+Expected Errors	2
+Operation –loadBill	3
+Expected Errors	2
+Operation – confirmBill
+
+
+-----
  PmtId element is to be
   <xs:enumeration value="SPTN"/>
       <xs:enumeration value="BLRPTN"/>
