@@ -1,0 +1,78 @@
+Send cut off message to Bank	
+Send cut off message to Bank from  SADAD	
+	
+	
+	Send reconciliation report to Bank
+	Send IntraBank transfer to Bank  for payment settlement
+	
+	
+SADAD DOES
+
+Cleanup expired bills
+Cleanup validated but not confirmed payments
+
+--------
+ PmtId element is to be
+  <xs:enumeration value="SPTN"/>
+      <xs:enumeration value="BLRPTN"/>
+      <xs:enumeration value="BNKPTN"/>
+      <xs:enumeration value="BNKRVL"/>
+	  
+	  
+	PmtMethod
+	  
+	  <xs:enumeration value="CASH"/>
+      <xs:enumeration value="CCARD"/>
+      <xs:enumeration value="EFT"/>
+      <xs:enumeration value="ACTDEB"/>
+
+
+
+PmtStatusCode 
+      <xs:enumeration value="PmtNew"/>
+      <xs:enumeration value="PmtUpdated"/>
+      <xs:enumeration value="PmtAny"/>
+      <xs:enumeration value="PmtDuplicate"/>
+      <xs:enumeration value="PmtReversal"/>
+      <xs:enumeration value="PmtTransf"/>
+      <xs:enumeration value="PmtNotTransf"/>
+      <xs:enumeration value="PmtNotAdviced"/>
+      <xs:enumeration value="PmtRecon"/>
+      <xs:enumeration value="PmtAlreadyRecon"/>
+      <xs:enumeration value="PmtNotRecon"/>
+      <xs:enumeration value="PmtNotInBank"/>
+      <xs:enumeration value="PmtNotInSadad"/>
+      <xs:enumeration value="PmtMisMatch"/>
+      <xs:enumeration value="PmtCompleted"/>
+      <xs:enumeration value="PmtNotCompleted"/>
+      <xs:enumeration value="PmtBillerMistmatch"/>
+	  
+	   Enum PmtType
+    </xs:annotation>
+    <xs:restriction base="NC4_Type">
+      <xs:enumeration value="POST"/>
+      <xs:enumeration value="RCHG"/>
+      <xs:enumeration value="RNEW"/>
+      <xs:enumeration value="RDEP"/>
+=========
+
+<xs:complexType name="BillerSvcRs_Type">
+  <xs:annotation>
+   <xs:documentation>-Biller Services are responsible for synchronization tasks
+                     performed exclusively with Billers</xs:documentation>
+  </xs:annotation>
+  <xs:sequence>
+   <xs:element ref="Status" minOccurs="0"/>
+   <xs:element ref="RqUID"/>
+   <xs:choice>
+    <xs:element ref="AccountConfirmationRs"/>
+    <xs:element ref="AccountUploadRs"/>
+    <xs:element ref="BillerReconUploadRs"/>
+    <xs:element ref="BillerTransLogUploadRs"/>
+    <xs:element ref="PmtConfirmationRs"/>
+    <xs:element ref="PmtDownloadRs"/>
+    <xs:element ref="PmtLoadRs"/>
+    <xs:element ref="PmtNotifyRs"/>
+    <xs:element ref="PmtNotifyUploadRs"/>
+    <xs:element ref="PmtUploadRs"/>
+   </xs:choice>
