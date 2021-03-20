@@ -18,3 +18,9 @@
 		</xsl:variable>
 		
 ----------------------
+
+<xsl:message dp:priority="error">
+    <xsl:value-of select="concat('StaticCode',$code)"/>
+    </xsl:message>
+    
+-----
