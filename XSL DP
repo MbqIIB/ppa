@@ -8,3 +8,13 @@
 			<xsl:value-of select="dp:variable('var://service/error-message')"/>
 		</xsl:variable>
 --    ----
+
+<xsl:variable name="vDebug">
+			<xsl:message terminate="no" dp:type="all" dp:priority="debug">
+				<xsl:value-of select="concat('METHOD=', 'HeaderWrite', ', ')"/>
+				<xsl:value-of select="concat('TYPE=', $pType/text(), ': ')"/>
+				<xsl:copy-of select="$pHeader/*"/>
+			</xsl:message>
+		</xsl:variable>
+		
+----------------------
