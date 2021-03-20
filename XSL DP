@@ -1,1 +1,10 @@
 <xsl:value-of select="//*[local-name() = 'RqTm']"/>	
+-----
+<xsl:variable name="xCode">
+			<xsl:value-of select="dp:response-header('x-dp-response-code')"/>
+		</xsl:variable>
+		
+		<xsl:variable name="error-message">
+			<xsl:value-of select="dp:variable('var://service/error-message')"/>
+		</xsl:variable>
+--    ----
