@@ -1,3 +1,10 @@
+
+https://github.com/bunq/gitbook/tree/743f3653864378e9221b64252614e379f067a8e1/psd2/connect-as-a-psd2-service-provider
+https://github.com/DixitGunjan/openbanking-java-sdk-example/tree/7e9a5ceabb87f5355af389deebdf335471ce49d5
+
+
+
+
 https://github.com/MbqIIB/Diplom/blob/a303b617138bdae5aaa77751a7a8a0eb0acb7ec3/dp/ESBGW.CF/files/local/allMQFunction.xsl
 
 https://github.com/yschiang/dp-samples/blob/0cd27cdf93e2b21736806436178c9aa6964c0d1c/mq-put-retrievemsgid.xsl
