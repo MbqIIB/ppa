@@ -1,3 +1,9 @@
+<dp:set-variable name="'var://context/api.gateway/uuid'" value="dp:generate-uuid()" />
+			<audit>
+				<uuid>
+					<xsl:value-of select="dp:variable('var://context/api.gateway/uuid')" />
+				</uuid>
+------
 <xsl:variable name="statusBlock">
 					<status>
 						<xsl:choose>
