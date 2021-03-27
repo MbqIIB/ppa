@@ -1,0 +1,34 @@
+<xsl:variable name="statusBlock">
+					<status>
+						<xsl:choose>
+							
+							<xsl:when test="$validationErrorCode = '200'">
+								<statusCode>200</statusCode>
+								<severity>error</severity>
+								<statusDesc><xsl:value-of select="$validationErrorMessage"/></statusDesc>
+							</xsl:when>
+							<xsl:when test="$errorCode='0x01130006' or $errorCode='0x01130007' or $errorCode='0x01130008' or $errorCode='0x0113001e' or $errorCode='0x0113001c' ">
+								<statusCode>300</statusCode>
+								<severity>error</severity>
+								<statusDesc><xsl:value-of select="$errorDesc"/></statusDesc>
+							</xsl:when>
+							<xsl:when test="$errorCode='0x00c30002' or $errorCode='0x00230001'">
+								<statusCode>100</statusCode>
+								<severity>error</severity>
+								<statusDesc><xsl:value-of select="$errorDesc"/></statusDesc>
+							</xsl:when>
+							<xsl:when test="$errorSubcode = '0x01d30001' or $errorSubcode = '0x01d30002'">			
+								<statusCode>1740</statusCode>
+								<severity>error</severity>
+								<statusDesc>Authentication/Authorisation failure</statusDesc>
+							</xsl:when>
+							
+							<xsl:otherwise>
+								<statusCode>100</statusCode>
+								<severity>error</severity>
+								<statusDesc><xsl:value-of select="$errorDesc"/></statusDesc>
+							</xsl:otherwise>
+						</xsl:choose>
+					</status>
+				</xsl:variable>
+<xsl:message>statusBlock:<xsl:copy-of select="$statusBlock"/> </xsl:message>
