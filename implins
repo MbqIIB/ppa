@@ -2,6 +2,10 @@ RAML
 https://github.com/aml-org/als/tree/b39a9151ba001d7c9270a14d624fd8115f58ee1b/als-server/shared/src/test/resources/outline/details/raml-1.0
 https://github.com/steve-a-edwards/we752/blob/master/WE752-Run-Notes.txt
 
+/*[local-name()='Envelope']/*[local-name()='Body']/*[local-name()='BagInfoResponse']
+
+
+
 https://github.com/ibm-datapower/datapower-playground/tree/50474dc130054b4fdfb20c67d2780059b8244095/src/web/public/doc/api
 for gw script learning
 https://github.com/Tangram-Soft/apic-policies/blob/2e0db2a8ac67b93451a92644a3875a2424c570ff/dynamicJwtValidation/source/dynamicJwtValidation.js
