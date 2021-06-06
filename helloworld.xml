@@ -1,23 +1,89 @@
-<?xml version="1.0" encoding="UTF-8"?>
+// XML input converted to JSON output extracting XML components using XPath function.
+// This demonstrates GatewayScript (ECMA) XML to JSON.
+// Author: Steve Edwards, Escala Ltd.
+// Date  : 2015-11-17.
+// Note  : this code is for demonstration purposes only, not production - level.
+// Read the input as XML document
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
-    <flow name="get:\helloworld:m4_core_components-config">
-        <logger level="INFO" message="get:\helloworld:m4_core_components-config &gt;&gt; #[now()]" />
-		<set-payload value='#[%dw 2.0
-output application/xml
----
+var transform = require('transform');
+
+session.input.readAsXML(function (error, doc) {
+	  if (error) {
+	    // handle error
+	    session.output.write (error.errorMessage);
+	  }
+	  else {
+		  var options = {
+				  'expression': '//ns1:book[1]/ns1:title/text()',
+	              'xmldom': doc,
+	              'namespace': { 'ns1': 'http://publisher.com/books' }
+	      };           
+		  transform.xpath(options, function(err, xmlNodeList) {
+			  if (err) {
+				  session.out.write(err);
+			  }
+			  else {
+				  //  xmlNodeList = 'JavaScript'
+				  var json_output = {};
+				  var option = { omitXmlDeclaration: true } ;
+				  json_output.firstTitle = XML.stringify(option, xmlNodeList);
+				  // {"firstTitle": "JavaScript"}
+				  session.output.write(json_output);
+			  }
+		  });
+	  }
+});
+/*
+<books xmlns="http://publisher.com/books">
+    <book><title>JavaScript</title><price>22.99</price></book>
+    <book><title>XSLT</title><price>35</price></book>
+</books>
+
+curl -d '<books xmlns="http://publisher.com/books"><book><title>JavaScript</title><price>22.99</price></book><book><title>XSLT</title><price>35</price></book></books>' http://192.168.1.72:8082/xpath-transform
+Output: {"firstTitle":"JavaScript"}
+*/
+----------
+var someJSON = {"hello": "This is", "there": "JSON"};
+
+// Alternative
+// var someJSON = new Object();
+// someJSON.hello = "This is";
+// someJSON.there = "JSON";
+
+session.output.write(someJSON);
+
+/* Sample output:
 {
-	html: {
-		title : "Hello World",
-		body: {
-		h1: {
-			center : "Hello World " ++ now() as String {format : "dd-MM-YYYY"}
-		}
-		}
-	}	
-}]' doc:name="Set Payload" doc:id="7585a532-2f53-43c1-918f-38cd06971308" mimeType="text/html"/>
-    
-</flow>	
-</mule>
+    "hello": "This is",
+    "there": "JSON"
+}
+*/
+-------------------
+
+		//print current headers
+		var hm = require('header-metadata');
+		console.debug("Current headers %j", hm.current.headers);
+		
+		//print service variables
+		console.debug("Input size is:" + sm.inputSize );
+		console.debug("Inbound URL:" + sm.getVar('var://service/URL-in') );
+		
+		//print input JSON message
+		console.debug("JSON Request is %s", queryparms);
+	}
+// construct SOAP request message
+session.output.write(
+	"<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" "
+	+ "xmlns:fly=\"http://www.ibm.com/datapower/FLY/BaggageService/\">" 
+	+ "<soapenv:Header/>"
+	+ "<soapenv:Body>"
+ 	+ "<fly:BaggageStatusRequest>"
+       	+ "<fly:refNumber>" + refNo + "</fly:refNumber>"
+       	+ "<fly:lastName>" + lastName + "</fly:lastName>"
+   	+ "</fly:BaggageStatusRequest>"
+  	+ "</soapenv:Body>"
+	+ "</soapenv:Envelope>"
+	);
+
+
+
