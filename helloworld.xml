@@ -93,4 +93,53 @@ session.output.write(
   </xsl:template>
 
 </xsl:stylesheet>
+-----------
+// Read the input as a JSON object and convert to SOAP message
+console.debug("Starting BaggageJson2Soap");
 
+session.input.readAsJSON(function(error,json) {
+	if (error) {
+		// an error occurred when parsing the content, e.g. invalid JSON object
+		session.output.write("oops error " + JSON.stringify(error.toString()));
+	} else {
+		
+debugger;
+		var refNo = json.refNumber;
+		var lastName = json.lastName;
+		
+		console.info("Received request from %s and referenece number is %i", lastName, refNo);
+		
+		// Debug level is a stylesheet parameter which is configurable in JS action
+		// Check debug level , if debug level is above 5, will print request headers and service variables
+		// Default value is 0
+		if (!session.parameters.debugLevel) 
+			session.parameters.debugLevel = 0;
+		if (session.parameters.debugLevel >= 5)
+		{
+			//print current headers
+			var hm = require('header-metadata');
+			console.debug("Current headers %j", hm.current.headers);
+			
+			//print service variables
+			var sm = require('service-metadata');
+			console.debug("Input size is:" + sm.inputSize );
+			console.debug("Inbound URL:" + sm.getVar('var://service/URL-in') );
+			
+			//print input JSON message
+			console.debug("JSON Request is %j", json);
+		}
+		
+		session.output.write(
+			"<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" "
+			+ "xmlns:fly=\"http://www.ibm.com/datapower/FLY/BaggageService/\">" 
+	   		+ "<soapenv:Header/>"
+	   		+ "<soapenv:Body>"
+	      		+ "<fly:BaggageStatusRequest>"
+	         	+ "<fly:refNumber>" + refNo + "</fly:refNumber>"
+	         	+ "<fly:lastName>" + lastName + "</fly:lastName>"
+	      		+ "</fly:BaggageStatusRequest>"
+	   		+ "</soapenv:Body>"
+			+ "</soapenv:Envelope>"
+		);
+	}
+});
