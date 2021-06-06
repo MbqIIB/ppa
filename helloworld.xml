@@ -85,5 +85,12 @@ session.output.write(
 	+ "</soapenv:Envelope>"
 	);
 
+---------
+  <xsl:output method="xml"/>
 
+  <xsl:template match="/">
+    <xsl:copy-of select="."/>
+  </xsl:template>
+
+</xsl:stylesheet>
 
