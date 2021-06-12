@@ -46,6 +46,56 @@ curl -d '<books xmlns="http://publisher.com/books"><book><title>JavaScript</titl
 Output: {"firstTitle":"JavaScript"}
 */
 ----------
+visa  encrypt
+
+
+var jose = require('jose');
+// get the input from the request
+session.input.readAsBuffer(function(readAsBufferError, jsonData) {
+	if (readAsBufferError) {
+		console.error('Error on readAsBuffer: ' + readAsBufferError);
+	} else {
+		var plaintext = jsonData;
+		try {
+			// Create JWE header that specifies content encryption algorithm
+			var jweHdr = jose.createJWEHeader('A128CBC-HS256');
+			// Add first recipient, identifying the cert object name, and
+			// encryption algo for the CEK, and JSON object with "kid" for Emi 
+			var EmiKidHdr = {"kid":"Emi"};
+			jweHdr.addRecipient('Emi-cert', 'RSA1_5', EmiKidHdr);
+			// Add second recipient
+			var ErinKidHdr = { "kid":"Erin"};
+			jweHdr.addRecipient('Erin-cert', 'RSA-OAEP', ErinKidHdr);
+			// Create JWEEncrypter, load it with the plaintext, encrypt it
+			// formatted as JSON serialized
+			jose.createJWEEncrypter(jweHdr).update(plaintext).encrypt(
+					'json',
+					function(error, jweJSONObj) {
+						if (error) {
+							// An error occurred during the encrypt process
+							session.reject(error.errorMessage);
+							return;
+						} else {
+							// Encryption was successful
+							console.debug('JSON-serialized object: '
+									+ jweJSONObj);
+							session.output.write(jweJSONObj);
+						}
+					});
+		} catch (e) {
+			session.reject("BuildMultiRecipientJWE.js error: " + e);
+			return;
+		}
+	}
+});
+
+
+
+
+
+----------------
+
+
 var someJSON = {"hello": "This is", "there": "JSON"};
 
 // Alternative
