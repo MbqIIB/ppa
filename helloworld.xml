@@ -1,6 +1,11 @@
 https://github.com/jwlee98/APIConnect/blob/ee7caa97a137d9511811ede2abb0061db57e0cad/Sample%20APIs/testloan_2.0.0.yaml
 
 
+
+   <xsl:variable name="timeStamp" select="number(dp:time-value())"/>
+ <xsl:variable name="millionSeconds" select="substring($timeStamp, 11, 3)"/>
+========
+
 // XML input converted to JSON output extracting XML components using XPath function.
 // This demonstrates GatewayScript (ECMA) XML to JSON.
 // Author: Steve Edwards, Escala Ltd.
