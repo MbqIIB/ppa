@@ -5,7 +5,13 @@ https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompa
    <xsl:variable name="timeStamp" select="number(dp:time-value())"/>
  <xsl:variable name="millionSeconds" select="substring($timeStamp, 11, 3)"/>
 =============
+Section 7. Test the JSON serialized JWE generation
+curl --data-binary @RefnumLastnameRequest.txt http://192.168.1.75:13001/EncryptBodyJSON > EncryptedBodyJSONJWE.txt
+- returns
+{"recipients":[{"header":{"kid":"Emi"},"encrypted_key":"XE6Ai12VBtWxXcO0LHD558CpE3DoN9o1udBc3f9U4JjfOhJVbViDmpODNuu8zsbeYOwCb26YLCpv1i7sxT1GCATZpJoa0VOCl08axjR9F_TSMfdyvknXBCmiT1d3Oq-dFB-Dcj_Auty47YGjR86y-W6Mum4gdriWGSyAbDRHjDurax4XrWd9E5PUC4YwZ8VYC72yFKeuOga53prAqSCfHIx1kEci4M0UM06NdygkVY9X7y_l4Rs-_XGExebFsDOgctVp1Tb8vifRgkcXlFlQXs4pmjNLXejYfpOS4xsnhsG_tsNx2UzgdsjfPiSX9ray08E2o6gBqNsD6ZCtWGmgvQ"}],"protected":"eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiUlNBMV81In0","ciphertext":"LI-voLRjxU5JvZwjzaQ0c2bUf40objeCAk_hyT_-u6rXbDMEvfDXj8hA5uFj1lpoR8osVILtagtOODowKlhBqA","iv":"lDI3J_pVOBQyC9I4efaTgA","tag":"j6bCqYR0Eh70yrw04Cbiww"}
+"The protected header decodes as “{"enc":"A128CBC-HS256","alg":"RSA1_5"}”, is actually the "protected" value.
 
+======
 var jose = require('jose');
 
 // get the input from the request
