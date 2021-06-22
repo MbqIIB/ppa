@@ -5,6 +5,27 @@ https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompa
    <xsl:variable name="timeStamp" select="number(dp:time-value())"/>
  <xsl:variable name="millionSeconds" select="substring($timeStamp, 11, 3)"/>
 =============
+
+
+/ Parse the JWE representation to extract the serialized\
+                \ values for\r\n            // the components of the JWE.  Returns\
+                \ an instance of JWEObject\r\n            // through which you can\
+                \ access the JWE content.\r\n            var jweObj = jose.parse(jweCompactObj);\r\
+                \n            console.error('JSON.stringify(jweObj) : ' + JSON.stringify(jweObj));\r\
+                \n\r\n            // Set key configuration object to process the encrypted\
+                \ key\r\n            var sharedkey = JSON.parse(apim.getvariable('shared-key01'));\r\
+                \n            jweObj.setKey(jwk.toBuffer(sharedkey));\r\n        \
+                \    \r\n            // The decrypt will only be attempted if key\
+                \ has been specified\r\n            jose.createJWEDecrypter(jweObj).decrypt(function(error,\
+                \ plaintext) {\r\n                if (error) {\r\n               \
+                \     // An error occurred during the decrypt process and is passed\
+                \ back\r\n                    // via the error parameter since .decrypt\
+                \ is an asynchronous call\r\n                    // write the error\
+                \ to the output context\r\n                    session.reject(error);\r\
+                \n                    return;\r\n                } else {\r\n    \
+                \                // since the decryption was successful you can write\
+
+==========
 Section 7. Test the JSON serialized JWE generation
 curl --data-binary @RefnumLastnameRequest.txt http://192.168.1.75:13001/EncryptBodyJSON > EncryptedBodyJSONJWE.txt
 - returns
