@@ -11,57 +11,7 @@ curl --data-binary @RefnumLastnameRequest.txt http://192.168.1.75:13001/EncryptB
 {"recipients":[{"header":{"kid":"Emi"},"encrypted_key":"XE6Ai12VBtWxXcO0LHD558CpE3DoN9o1udBc3f9U4JjfOhJVbViDmpODNuu8zsbeYOwCb26YLCpv1i7sxT1GCATZpJoa0VOCl08axjR9F_TSMfdyvknXBCmiT1d3Oq-dFB-Dcj_Auty47YGjR86y-W6Mum4gdriWGSyAbDRHjDurax4XrWd9E5PUC4YwZ8VYC72yFKeuOga53prAqSCfHIx1kEci4M0UM06NdygkVY9X7y_l4Rs-_XGExebFsDOgctVp1Tb8vifRgkcXlFlQXs4pmjNLXejYfpOS4xsnhsG_tsNx2UzgdsjfPiSX9ray08E2o6gBqNsD6ZCtWGmgvQ"}],"protected":"eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiUlNBMV81In0","ciphertext":"LI-voLRjxU5JvZwjzaQ0c2bUf40objeCAk_hyT_-u6rXbDMEvfDXj8hA5uFj1lpoR8osVILtagtOODowKlhBqA","iv":"lDI3J_pVOBQyC9I4efaTgA","tag":"j6bCqYR0Eh70yrw04Cbiww"}
 "The protected header decodes as “{"enc":"A128CBC-HS256","alg":"RSA1_5"}”, is actually the "protected" value.
 
-======
-var jose = require('jose');
 
-// get the input from the request
-
-session.input.readAsBuffer(function(readAsBufferError, jsonData) {
-    if (readAsBufferError) {
-        console.error('Error on readAsBuffer: ' + readAsBufferError);
-    } else {
-
-        try {
-            debugger;
-
-            // Create a JWEHeader instance and specify the encryption algorithm to use
-
-            var jweHdr = jose.createJWEHeader('A128CBC-HS256');
-
-            // Set the CEK encryption algorithm header parameter in the protected header
-
-            jweHdr.setProtected('alg', 'RSA1_5');
-
-            // Set the key configuration object to process the encrypted key
-
-            jweHdr.setKey('Emi-cert');
-
-            // Specify which jweHeader defines how to encrypt this message then
-            // update the jweEncrypter with the message to be encrypted then
-            // encrypt the JWE Encryption object using the compact serialization
-            // output_format as specified
-            jose.createJWEEncrypter(jweHdr).update(jsonData).encrypt('compact', function(error, jweCompactObj) {
-                if (error) {
-                    // An error occurred during the encrypt process and is passed back
-                    // via the error parameter since .encrypt is an asynchronous call
-                    // write the error to the output context
-                    session.reject(error);
-                    return;
-                } else {
-                    session.output.write(jweCompactObj);
-                }
-            }); // encrypt function
-        } catch (e) {
-            session.reject("EncryptCompactJWE.js error: " + e);
-            return;
-        }
-    }
-}); // readAsBuffer
-============
-
-var sm = require('service-metadata');
-var hm = require('header-metadata');
-sm.setVar('var://service/mpgw/skip-backside', true);
 ========
 
 // XML input converted to JSON output extracting XML components using XPath function.
