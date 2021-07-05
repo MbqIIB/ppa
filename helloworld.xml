@@ -5,6 +5,12 @@ https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompa
    <xsl:variable name="timeStamp" select="number(dp:time-value())"/>
  <xsl:variable name="millionSeconds" select="substring($timeStamp, 11, 3)"/>
 =============
+
+ <dp:set-http-request-header name="'content-type'" value="'application/xml'" />
+        <dp:set-http-response-header name="'content-type'" value="'application/xml'" />
+        <dp:set-http-request-header name="'accept'" value="'application/xml'" />
+        <dp:set-http-response-header name="'accept'" value="'application/xml'" />
+--------
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0"
