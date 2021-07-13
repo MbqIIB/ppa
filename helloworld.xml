@@ -20,6 +20,16 @@ curl --url "http://127.0.0.1:7783" --data "{"userpass":"$userpass","method":"ele
 		<xsl:copy-of select="."/>
 	</xsl:template>
 --------
+
+<xsl:template match="/">
+		<dp:set-http-request-header name="'MQMD'" value="''"/>
+		<dp:set-http-request-header name="'MQRFH2'" value="''"/>
+		<dp:set-http-request-header name="'X-MQRFH2-Data-0'" value="''"/>
+		<dp:set-http-request-header name="'X-MQRFH2-Data-1'" value="''"/>
+		<xsl:copy-of select="."/>
+	</xsl:template>
+
+----------
  <dp:set-http-request-header name="'content-type'" value="'application/xml'" />
         <dp:set-http-response-header name="'content-type'" value="'application/xml'" />
         <dp:set-http-request-header name="'accept'" value="'application/xml'" />
