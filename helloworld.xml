@@ -13,6 +13,13 @@ https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompa
 curl --url "http://127.0.0.1:7783" --data "{"userpass":"$userpass","method":"electrum","coin":"KMD","ipaddr":"electrum1.cipig.net","port":10001}"
 
 ---------
+
+<xsl:template match="/">
+		<!-- Load the service manifest file -->
+		<dp:set-variable name="'var://service/mpgw/skip-backside'" value="1"/>
+		<xsl:copy-of select="."/>
+	</xsl:template>
+--------
  <dp:set-http-request-header name="'content-type'" value="'application/xml'" />
         <dp:set-http-response-header name="'content-type'" value="'application/xml'" />
         <dp:set-http-request-header name="'accept'" value="'application/xml'" />
