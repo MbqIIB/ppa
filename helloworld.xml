@@ -14,6 +14,57 @@ curl --url "http://127.0.0.1:7783" --data "{"userpass":"$userpass","method":"ele
 
 ---------
 
+var jose = require('jose');
+var jwt = require('jwt');
+var hm = require('header-metadata');
+
+var requestid = session.parameters.requestid;
+var appid = session.parameters.appid;
+var uuid = session.parameters.uuid;
+var clientIP = session.parameters.clientIP;
+
+var claims = {
+    'iat': new Date().getTime() - 1000, //system date - 1s
+   'exp': (new Date().getTime()) + 3000000, // expire in 300 s
+  //   'exp': (new Date().getTime()) + 31104000000, // expire 12 months
+   //   'exp': (new Date().getTime()) + 5184000000, // expire 2 months
+    'iss': 'auretailshvdptst.dev.anz',
+      'aud': 'https://cspuiuat.service.dev/',
+	'ANZ-Application-ID': appid,
+	'ANZ-Application-Version':'1.0', 
+	'ANZ-Request-ID': requestid,
+	'ANZ-Source-IP': clientIP,
+	
+    'context': {
+        'user': {
+                   'id': uuid,  
+                   'type': 'UUID'    
+            
+        }
+    }
+}; 
+
+
+// use RS256 algorithm and crypto key to sign
+var jwsHeader = jose.createJWSHeader('Auretailsh_Key_Server', 'RS256');
+jwsHeader.setProtected({'typ': 'JWT'});
+var encoder = new jwt.Encoder(claims);
+
+encoder.addOperation('sign', jwsHeader)
+    .encode(function(error, token) {
+        if (error) {
+            session.output.write('error creating JWT: ' + error);
+        } else {
+            // write the JWT token to output
+            //session.output.write(token);
+            var Bear = 'Bearer' + ' ' + token;
+            hm.current.set('JWT-Token', Bear);
+            var Bear = 'Bearer' + ' ' + token;
+            hm.current.set('Authorization', Bear);
+        }
+    });
+----------
+
 <xsl:template match="/">
 		<!-- Load the service manifest file -->
 		<dp:set-variable name="'var://service/mpgw/skip-backside'" value="1"/>
