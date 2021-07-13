@@ -9,6 +9,10 @@ https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompa
 							<dp:set-http-request-header name="$NAME" value="$USER_NAME"/>
 
 -------
+
+curl --url "http://127.0.0.1:7783" --data "{"userpass":"$userpass","method":"electrum","coin":"KMD","ipaddr":"electrum1.cipig.net","port":10001}"
+
+---------
  <dp:set-http-request-header name="'content-type'" value="'application/xml'" />
         <dp:set-http-response-header name="'content-type'" value="'application/xml'" />
         <dp:set-http-request-header name="'accept'" value="'application/xml'" />
@@ -29,30 +33,6 @@ select="*[local-name()='item']"/>
   <xsl:value-of select="local-name(.)"/>
   <xsl:text>: </xsl:text>
 --------
-	
-	's1': { 'JWE_alg': 'RSA1_5', 'JWE_alg_key_kid': 'rsa_key', 'JWE_enc': 'A128CBC-HS256'},
-    's2': { 'JWE_alg': 'RSA-OAEP', 'JWE_alg_key_kid': 'rsa_key', 'JWE_enc': 'A128CBC-HS256'},
-    's3': { 'JWE_alg': 'A128KW', 'JWE_alg_key_kid': 'sym_key_128', 'JWE_enc': 'A128CBC-HS256'},
-    's4': { 'JWE_alg': 'A256KW', 'JWE_alg_key_kid': 'sym_key_256', 'JWE_enc': 'A128CBC-HS256'},
-    's5': { 'JWE_alg': 'dir', 'JWE_alg_key_kid': 'sym_key_256', 'JWE_enc': 'A128CBC-HS256'},
-
-    's6': { 'JWE_alg': 'RSA1_5', 'JWE_alg_key_kid': 'rsa_key', 'JWE_enc': 'A256CBC-HS512'},
-    's7': { 'JWE_alg': 'RSA-OAEP', 'JWE_alg_key_kid': 'rsa_key', 'JWE_enc': 'A256CBC-HS512'},
-    's8': { 'JWE_alg': 'A128KW', 'JWE_alg_key_kid': 'sym_key_128', 'JWE_enc': 'A256CBC-HS512'},
-    's9': { 'JWE_alg': 'A256KW', 'JWE_alg_key_kid': 'sym_key_256', 'JWE_enc': 'A256CBC-HS512'},
-    's10': { 'JWE_alg': 'dir', 'JWE_alg_key_kid': 'sym_key_512', 'JWE_enc': 'A256CBC-HS512'},
-
-    's11': { 'JWE_alg': 'RSA1_5', 'JWE_alg_key_kid': 'rsa_key', 'JWE_enc': 'A192CBC-HS384'},
-    's12': { 'JWE_alg': 'RSA-OAEP', 'JWE_alg_key_kid': 'rsa_key', 'JWE_enc': 'A192CBC-HS384'},
-    's13': { 'JWE_alg': 'A128KW', 'JWE_alg_key_kid': 'sym_key_128', 'JWE_enc': 'A192CBC-HS384'},
-    's14': { 'JWE_alg': 'A256KW', 'JWE_alg_key_kid': 'sym_key_256', 'JWE_enc': 'A192CBC-HS384'},
-    's15': { 'JWE_alg': 'dir', 'JWE_alg_key_kid': 'sym_key_384', 'JWE_enc': 'A192CBC-HS384'},
-
-    'f1': { 'JWE_alg': 'RSA1_5', 'JWE_alg_key_kid': 'rsa_key', 'JWE_enc': 'A128CBC-HS256', 'id_token_JWE_invalid_authTag': true },
-    'f2': { 'JWE_alg': 'RSA1_5', 'JWE_alg_key_kid': 'rsa_key', 'JWE_enc': 'A256CBC-HS512', 'id_token_JWE_invalid_authTag': true },
-  };
-
-	-----------
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     version="1.0"
