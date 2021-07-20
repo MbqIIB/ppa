@@ -14,8 +14,6 @@ https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompa
 </xsl:variable>
 <xsl:variable name="result" select="dp:parse($b64Msg, 'base-64')"/>
 <xsl:copy-of select="$result"/>
-
-
 <xsl:value-of select="string(dp:decode(dp:binary-encode(/object/message/node()), 'base-64'))" />
 ---
 curl --url "http://127.0.0.1:7783" --data "{"userpass":"$userpass","method":"electrum","coin":"KMD","ipaddr":"electrum1.cipig.net","port":10001}"
