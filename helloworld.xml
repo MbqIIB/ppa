@@ -70,7 +70,20 @@ encoder.addOperation('sign', jwsHeader)
         }
     });
 ----------
+if (!session.parameters.BaseURL) session.parameters.BaseURL = 'http://localhost'; 			// default base-url (if wasn't configured).
+if (!session.parameters.Timeout) session.parameters.Timeout = 30; 					// default timeout (in seconds).
+var sm = require('service-metadata');
+var hm = require('header-metadata');
+var urlopen = require('urlopen');
 
+sm.setVar('var://service/mpgw/skip-backside', true);
+
+session.input.readAsBuffer(function (error, buffer){
+	if (error) {
+		hm.response.statusCode = '500 Internal Server Error';
+		session.output.write({'status': 'error', 'message': hm.response.reasonPhrase});
+		throw error;
+-------------
 <xsl:template match="/">
 		<!-- Load the service manifest file -->
 		<dp:set-variable name="'var://service/mpgw/skip-backside'" value="1"/>
