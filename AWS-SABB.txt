@@ -24,10 +24,16 @@ POST /v1/print/ HTTP/1.1
 
     content=~~~%20%21%21%21%2B%2B%2B%2A%26%5E%25%24%23%40%3F%2F_&sn=123456789
 
+-------
+var crypto = require('crypto');
+var key = "Alice";
 
+var hmac = crypto.createHmac('hmac-sha256', key);
+var input = "This is plaintext to hash";
+var result = hmac.update(input).digest('base64');
 
-
-
+session.output.write(result);
+===========
 Signature calculation pseudo code
 
 
