@@ -1,0 +1,206 @@
+
+https://dinochiesa.github.io/hmachash/index.html
+
+Calculate signature( Signature) AccessKey,: SecretKey123456789,: 123456789 ::
+
+    SecretKey = "123456789"
+    StringToSign = "1497508720\nbce2029159576daffb8574ae670697bbbb186281"
+    Signature = HexEncode(HmacSHA1(StringToSign,SecretKey))
+              = "e750db371d068d16b36422a6f36bd177daf1c2aa"
+			  
+			  
+Generate signature string::			  
+			  Generate signature string::
+    Authorization = Base64("HMAC-SHA1 123456789:e750db371d068d16b36422a6f36bd177daf1c2aa")
+                  = "SE1BQy1TSEExIDEyMzQ1Njc4OTplNzUwZGIzNzFkMDY4ZDE2YjM2NDIyYTZmMzZiZDE3N2RhZjFjMmFh"
+
+Complete request message::
+POST /v1/print/ HTTP/1.1
+    Host: api.sonma.net
+    Authorization: SE1BQy1TSEExIDEyMzQ1Njc4OTplNzUwZGIzNzFkMDY4ZDE2YjM2NDIyYTZmMzZiZDE3N2RhZjFjMmFh
+    Timestamp: 1497508720
+    Cache-Control: no-cache
+    Content-Type: application/x-www-form-urlencoded
+
+    content=~~~%20%21%21%21%2B%2B%2B%2A%26%5E%25%24%23%40%3F%2F_&sn=123456789
+
+
+
+
+
+Signature calculation pseudo code
+
+
+    Authorization = Base64(HMAC-SHA1 + 空格 + AccessKey+ : + Signature)
+ 
+    Signature = HexEncode(HmacSHA1(StringToSign,SecretKey))
+
+    StringToSign  = Timestamp + '\n' + HashedCanonicalQueryString
+
+    HashedCanonicalQueryString = HexEncode(Hash(CanonicalQueryString)
+=======
+
+var crypto = require('crypto');
+var key = "Alice";
+
+var hmac = crypto.createHmac('hmac-sha256', key);
+var input = "This is plaintext to hash";
+var result = hmac.update(input).digest('base64');
+
+session.output.write(result);
+-----------
+
+var date = new Date()
+
+var utcDate = date.toUTCString()
+
+
+
+https://www.ibm.com/docs/en/datapower-gateways/2018.4?
+
+topic=methods-crypto-module#crypto.createHash
+
+
+<xsl:variable name="sha-hash" select="dp:hash($SHA1, $plainText)"/>
+
+
+ base-16 encoding of the digest 
+
+The hash length is the length of the hash function output in bytes. 
+
+Note that the resulting hash is encoded with Base 64, so the digest 
+
+HexEncode represents a function that returns the base-16 encoding 
+
+of the digest in lowercase characters. 
+
+
+Implementers should be aware that base16 digests are case 
+
+insensitive. 
+
+
+the MD5 hash output is 16 bytes
+
+-----------
+
+var crypto = require('crypto');
+var key = "Alice";
+
+var sign = crypto.createSign('rsa-sha256');
+sign.update('This is text to sign').sign(key, function(error, signature) {
+  if (error) {
+    console.error("sign error "+error);
+  } else {
+    console.log("signature with rsa-sha256 is "+signature.toString('base64'));
+    session.output.write(signature);
+  }
+});
+
+----------
+
+const crypto = require('crypto');
+const hmac = crypto.createHmac('sha256', 'a secret');
+
+hmac.update('some data to hash');
+console.log(hmac.digest('hex'));
+// Prints:
+//   7fd04df92f636fd450bc841c9418e5825c17f33ad9c87c518115a45971f7f77e
+
+---
+
+const crypto = require('crypto');
+const hmac = crypto.createHmac('sha256', 'a secret');
+
+hmac.on('readable', () => {
+  const data = hmac.read();
+  if (data) {
+    console.log(data.toString('hex'));
+    // Prints:
+    //   7fd04df92f636fd450bc841c9418e5825c17f33ad9c87c518115a45971f7f77e
+  }
+});
+
+hmac.write('some data to hash');
+hmac.end();
+-------
+const crypto = require('crypto');
+const sign = crypto.createSign('SHA256');
+
+sign.update('some data to sign');
+
+const privateKey = getPrivateKeySomehow();
+console.log(sign.sign(privateKey, 'hex'));
+// Prints: the calculated signature
+----------
+const crypto = require('crypto');
+const hash = crypto.createHash('sha256');
+
+hash.update('some data to hash');
+console.log(hash.digest('hex'));
+// Prints:
+//   6a2da20943931e9834fc12cfe5bb47bbd9ae43489a30726962b576f4e3993e50
+
+--------
+	 [ hash.update()][] and [ hash.digest()][] methods to generate the calculated hash.
+	
+----
+// user=cpet
+// AWS_ACCESS_KEY_ID : "AKIAI5KH46DEYEGVNFNA"
+// AWS_SECRET_ACCESS_KEY : "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"
+
+// user=opc
+// AWS_ACCESS_KEY_ID : "AKIAIN754R7GFVCTI76Q"
+// AWS_SECRET_ACCESS_KEY : "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"
+
+// AWS parameters used to create a new RequestSigner
+var aws_params = {
+    AWS_S3_HOST : "s3.amazonaws.com",
+	AWS_ACCESS_KEY_ID : "AKIAI5KH46DEYEGVNFNA",
+	AWS_SECRET_ACCESS_KEY : "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",
+	AWS_REGION : "us-east-1",
+	AWS_SERVICE : "s3",
+	AWS4_DEBUG : true
+};
+
+var signer = new aws4.RequestSigner(aws_params);
+
+var _url = new URL(request.url.trim()
+    .replace("{{API_HOST}}", aws_params["AWS_S3_HOST"])
+);
+
+// Create read-only object containing the request context
+var context = {
+	API_HOST : _url.hostname,
+	BUCKET_NAME : _url.hostname.split('.')[0]
+};
+
+var _request = {
+	method : request.method,
+	url : _url,
+	headers : request.headers,
+	data : request.data,
+	dataMode : request.dataMode
+};
+
+var atz_header = signer.sign(context, _request);
+
+// Set POSTMAN environment variables associated with url
+postman.setEnvironmentVariable('BUCKET_NAME', context["BUCKET_NAME"]);
+postman.setEnvironmentVariable('API_HOST', aws_params["AWS_S3_HOST"]);
+
+// Set POSTMAN environment variables associate with headers
+postman.setEnvironmentVariable("AUTHORIZATION_HEADER", atz_header);
+postman.setEnvironmentVariable('DATE_HEADER', signer.headers["DATE"]);
+
+// Set POSTMAN environment variables associate with additional headers
+postman.setEnvironmentVariable("X_AMZ_DATE_HEADER", signer.headers["X_AMZ_DATE"]);
+postman.setEnvironmentVariable('X_CONTENT_SHA256_HEADER', signer.headers["X_CONTENT_SHA256"]);
+
+console.log(aws_params["AWS4_CANONICAL_REQUEST"]);
+console.log(aws_params["Calculate signature( Signature) AccessKey,: SecretKey123456789,: 123456789 ::
+
+    SecretKey = "123456789"
+    StringToSign = "1497508720\nbce2029159576daffb8574ae670697bbbb186281"
+    Signature = HexEncode(HmacSHA1(StringToSign,SecretKey))
+              = "e750db371d068d16b36422a6f36bd177daf1c2aa""]);
