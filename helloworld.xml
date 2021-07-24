@@ -9,31 +9,7 @@ https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompa
 							<dp:set-http-request-header name="$NAME" value="$USER_NAME"/>
 https://github.com/SysIntAu/DPDirectServicesFramework/blob/82156805f00271d367d3f39cd93d78999d9a9537/framework-rest-api/src/main/xml/configuration/framework-rest-api/services/common/AddEsbServicesSecurityHeaders.xsl
 -------
-else {
-    statuscode = '1';
 
-    session.input.readAsJSON(function (error, json) {
-        if (error) {
-            console.error('Input is not valid JSON. ', error);
-        } else {
-            AnnotationID = 1;
-            statusdesc = json["Message"];
-            var output = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" >' +
-                '<soapenv:Header />' +
-                '<soapenv:Body>' +
-                '<' + nsPrefix + ':' + 'Document_OUT xmlns:ns0="urn:mg_iBOLT_FileNet_Methods_CreateAnnotation_Document_OUT" xmlns:ns1="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsi="http://www.w3.org/2001/XMLSchema">' +
-                '<' + nsPrefix + ':StatusCode>' + statuscode + '</' + nsPrefix + ':StatusCode>' + '<' + nsPrefix + ':StatusDesc>' + statusdesc + '</' + nsPrefix + ':StatusDesc>' +
-                '<' + nsPrefix + ':AnnotationID>' + AnnotationID + '</' + nsPrefix + ':AnnotationID>' +
-                '</' + nsPrefix + ':' + 'Document_OUT>' +
-                '</soapenv:Body>' +
-                //'</soapenv:Body>' +// Added
-                '</soapenv:Envelope>';
-
-            hm.current.set('Content-Type', 'text/xml');
-            session.output.write(output);
-        }
-    })
-}
 =-------
 <xsl:template match="/">
 				<xsl:variable name="formatted-error-message" select="dp:variable('var://service/formatted-error-message')"/>
