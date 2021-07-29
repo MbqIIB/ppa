@@ -43,7 +43,46 @@ var responseBody = JSON.stringify(body);
 
 error"));
 var hashString = crypto.createHmac('SHA256', sharedSecret).update(preHashString).digest('hex');
+===========
+	var urlopen = require('urlopen');
+session.input.readAsJSON (function (error, json) {
+    if (error) {
+      session.output.write(error);
+    }
+    else{
+var options = {
+            target: 'https://biztalk-srv1.mol-pdom.gov:1014',
+            method: 'POST',
+           headers: {  'keyId':'55588','Authorization' : 'Basic UWl3YVVzcjpYeXo3ODkw' },
+		   contentType: 'application/json',
+           data: json
+		   
+         //sslClientProfile: 'alice-sslproxy-forward-trusted'
+};
+
+urlopen.open(options, function(error, response) {
+  if (error) {
+    // an error occurred during the request sending or response header parsing
+    session.output.write("urlopen error: "+JSON.stringify(error));
+  } else {
+    // get the response status code
+    var responseStatusCode = response.statusCode;
+    var responseReasonPhrase = response.reasonPhrase;
+    console.log("Response status code: " + responseStatusCode);
+    console.log("Response reason phrase: " + responseReasonPhrase);
+    // reading response data
+    response.readAsJSON(function(error, responseData){
+      if (error){
+        throw error ;
+      } else {
+        session.output.write(responseData) ;
+      }
+    });
+  }
+});
+	}
 	
+   }});
 	========
 <xsl:variable name="USER_NAME" select="dp:variable($REQ_USER_NAME_VAR_NAME)"/>
 							<dp:set-http-request-header name="$NAME" value="$USER_NAME"/>
