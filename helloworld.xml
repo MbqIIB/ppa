@@ -5,17 +5,14 @@ https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompa
    <xsl:variable name="timeStamp" select="number(dp:time-value())"/>
  <xsl:variable name="millionSeconds" select="substring($timeStamp, 11, 3)"/>
 =============
-
+const contextParts = data.config['context-variable'].substring(6).split('/').slice(1);
+--
 encData: returns null");
 getInAppPayloadJwe input is null");
 
 ]!== undefined){
-
-
-
 ("decryption error"));
-
-
+---
 var responseBody = JSON.stringify(body);
                     if (responseBody.indexOf('encData') != -1) {
                         decrypt(privateKey, body).then(success => {
