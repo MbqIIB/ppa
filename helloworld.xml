@@ -9,6 +9,7 @@ https://github.com/ibmArtifacts/Utility_XMLF/blob/9723dc1b752e0630eeb7ce2458fc47
 https://github.com/dan-orangespecs/practical-datapower/blob/80e8bb08698aa6c1af6df4396fcd33afc742c5c0/OSC_PD_Stub/source/local/processError.xslt
 ------
 https://www.saudiarabiavisa.co.uk/pdf/saudi-family-visit-visa-application.pdf
+https://gist.github.com/copethomas/9891c9f3f1b226e1e738b4926813974a
 ------
 const contextParts = data.config['context-variable'].substring(6).split('/').slice(1);
 --
