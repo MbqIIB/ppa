@@ -2,6 +2,10 @@ https://github.com/jwlee98/APIConnect/blob/ee7caa97a137d9511811ede2abb0061db57e0
 
 https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompactJWE.js
 
+
+<xsl:if test="@structure and not(@structure='hierarchical')">
+							<xsl:attribute name="structure"><xsl:value-of select="@structure"/></xsl:attribute>
+						</xsl:if>
    <xsl:variable name="timeStamp" select="number(dp:time-value())"/>
  <xsl:variable name="millionSeconds" select="substring($timeStamp, 11, 3)"/>
 =============
