@@ -9,6 +9,30 @@ https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompa
    <xsl:variable name="timeStamp" select="number(dp:time-value())"/>
  <xsl:variable name="millionSeconds" select="substring($timeStamp, 11, 3)"/>
 =============
+<json:object>
+			<json:string name="cod">
+				<xsl:value-of select="$errorCode" />
+			</json:string>
+			<json:string name="msg">
+				<xsl:value-of select="$errorMessage" />
+			</json:string>
+			<json:string name="exc">
+				<xsl:value-of select="$exceptionMessage" />
+			</json:string>
+			<json:null name="errors" />
+		</json:object>
+
+<json:string name="_version"><xsl:value-of select="$blueprint-version"/></json:string>
+
+<xsl:when test="$errorCode='0x01130006' or $errorCode='0x01130007' or $errorCode='0x01130008' or $errorCode='0x0113001e' or $errorCode='0x0113001c' ">
+								<statusCode>300</statusCode>
+								<severity>error</severity>
+								<statusDesc><xsl:value-of select="$errorDesc"/></statusDesc>
+							</xsl:when>
+
+<xsl:variable name="errorCode" select="dp:variable('var://service/error-code')"/>
+
+----------
 https://github.com/ibmArtifacts/Utility_XMLF/blob/9723dc1b752e0630eeb7ce2458fc475edcfeff3f/toJson.js
 https://github.com/dan-orangespecs/practical-datapower/blob/80e8bb08698aa6c1af6df4396fcd33afc742c5c0/OSC_PD_Stub/source/local/processError.xslt
 ------
