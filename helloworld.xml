@@ -9,6 +9,21 @@ https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompa
    <xsl:variable name="timeStamp" select="number(dp:time-value())"/>
  <xsl:variable name="millionSeconds" select="substring($timeStamp, 11, 3)"/>
 =============
+
+<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+	<xsl:template match="/">
+		<xsl:variable name="LogTargetSub">
+			<xsl:copy-of select="dp:variable('var://service/processor-name')"/>
+		</xsl:variable>
+		<xsl:variable name="xCode" select="normalize-space(dp:response-header('x-dp-response-code'))" />
+		<xsl:message terminate="no" dp:type="{concat($Config:LogCategory,'_',$LogTargetSub)}" dp:priority="debug">Mq return code:<xsl:value-of select="$xCode"/>           			 </xsl:message>
+		<xsl:if test="starts-with($xCode, '2') and string-length($xCode)=4">
+			<dp:reject>MQ Error with mqrc=<xsl:value-of select="$xCode"/></dp:reject>
+		</xsl:if>
+		<xsl:copy-of select="dp:variable('var://context/msg/body')"/>
+	</xsl:template>
+</xsl:stylesheet>
+---------
 <json:object>
 			<json:string name="cod">
 				<xsl:value-of select="$errorCode" />
