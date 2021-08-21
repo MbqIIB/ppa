@@ -1,7 +1,7 @@
 https://github.com/jwlee98/APIConnect/blob/ee7caa97a137d9511811ede2abb0061db57e0cad/Sample%20APIs/testloan_2.0.0.yaml
 
 https://github.com/steve-a-edwards/we752/blob/master/Exercise-4-GWS/DecryptCompactJWE.js
-
+https://github.com/mohan1750/Datapower/blob/641a691ad3fa8fc9bbb372fab4ddc08b77f10879/New_POC/SSHttpRqRply_RestToRest/01/ErrorProcessor.xsl
 
 <xsl:if test="@structure and not(@structure='hierarchical')">
 							<xsl:attribute name="structure"><xsl:value-of select="@structure"/></xsl:attribute>
