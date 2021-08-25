@@ -8,6 +8,12 @@ https://github.com/mohan1750/Datapower/blob/641a691ad3fa8fc9bbb372fab4ddc08b77f1
 						</xsl:if>
    <xsl:variable name="timeStamp" select="number(dp:time-value())"/>
  <xsl:variable name="millionSeconds" select="substring($timeStamp, 11, 3)"/>
+
+xsl:choose>
+			<xsl:when test="/*[local-name() = 'Envelope']/*[local-name() = 'Body']/*[1]">
+				<xsl:copy-of  select="/*[local-name() = 'Envelope']/*[local-name() = 'Body']/*[1]"/>
+
+(//*[1])
 =============
 
 <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
