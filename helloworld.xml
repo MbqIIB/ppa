@@ -26,7 +26,35 @@ xsl:choose>
 <xsl:variable name="methodName">
 			<xsl:copy-of select="local-name(/*[local-name()='Envelope']/*[local-name()='Body']/*)" />
 		</xsl:variable>
+--------------------
 				
+				H1B Petition Number: EAC2104750680
+
+UID : 86750593
+naveenjangiti@gmail.com
+
+Details
+
+1)Jangiti Naveen Kumar
+ DS 160 Confirmation:AA00AB44T1
+ DOB : 12-AUG-1979
+ Email : naveenjangiti@gmail.com , mail2naveen.de@gmail.com
+ Phone: +966 592848721
+ (Passport Number :Z5743574, Country of Birth: India, Nationality: India, Place of Issue:Saudi,Riyadh. DOI: 22/8/2021,  DOE: 21/8/2031)
+
+2)Jangiti Radhika
+ DS 160 Confirmation:AA00AB3Z6N
+ DOB : 09-AUG-1984
+ Email : radhika.jangiti@gmail.com , mail2radhika.de@gmail.com
+ Phone: +91 9618607169
+(Passport Number :N3207693, Country of Birth: India, Nationality: India,Place of Issue:India,Hyderabad. DOI: 29/9/2015,  DOE: 28/9/2025)
+
+3)Jangiti Siva Karthikeya
+ DS 160 Confirmation: AA00AB4DL5
+ DOB : 02-NOV-2016
+ Email : radhika.jangiti@gmail.com 
+ Phone: +91 9618607169
+(Passport Number :S6484137, Country of Birth: India, Nationality: India,Place of Issue:India,Hyderabad. DOI: 29/10/2018, DOE:28/10/2023)
 				
 =============
 
