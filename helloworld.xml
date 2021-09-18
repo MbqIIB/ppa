@@ -35,7 +35,11 @@ xsl:choose>
             hm.current.set('JWT-Token', Bear);
             var Bear = 'Bearer' + ' ' + token;
             hm.current.set('Authorization', Bear);
-
+------
+				
+hm.current.set('Authorization', 'Bearer ' + json.access_token);
+        console.error(`${tr} bearer token azn header: ${hm.current.get('Authorization')}`);
+======
 
 
 
