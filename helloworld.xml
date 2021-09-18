@@ -31,33 +31,50 @@ xsl:choose>
 		</xsl:variable>
 --------------------
 				
-				H1B Petition Number: EAC2104750680
+			 var Bear = 'Bearer' + ' ' + token;
+            hm.current.set('JWT-Token', Bear);
+            var Bear = 'Bearer' + ' ' + token;
+            hm.current.set('Authorization', Bear);
 
-UID : 86750593
-naveenjangiti@gmail.com
 
-Details
 
-1)Jangiti Naveen Kumar
- DS 160 Confirmation:AA00AB44T1
- DOB : 12-AUG-1979
- Email : naveenjangiti@gmail.com , mail2naveen.de@gmail.com
- Phone: +966 592848721
- (Passport Number :Z5743574, Country of Birth: India, Nationality: India, Place of Issue:Saudi,Riyadh. DOI: 22/8/2021,  DOE: 21/8/2031)
 
-2)Jangiti Radhika
- DS 160 Confirmation:AA00AB3Z6N
- DOB : 09-AUG-1984
- Email : radhika.jangiti@gmail.com , mail2radhika.de@gmail.com
- Phone: +91 9618607169
-(Passport Number :N3207693, Country of Birth: India, Nationality: India,Place of Issue:India,Hyderabad. DOI: 29/9/2015,  DOE: 28/9/2025)
 
-3)Jangiti Siva Karthikeya
- DS 160 Confirmation: AA00AB4DL5
- DOB : 02-NOV-2016
- Email : radhika.jangiti@gmail.com 
- Phone: +91 9618607169
-(Passport Number :S6484137, Country of Birth: India, Nationality: India,Place of Issue:India,Hyderabad. DOI: 29/10/2018, DOE:28/10/2023)
+ const options = {
+            target: `${tokenendpoint}`, // param
+            method: 'post',
+            headers: {
+               'accept':'application/json',
+               'content-type':'application/x-www-form-urlencoded',
+            //    'cache-control':'no-cache',
+               'authorization': uh.aznheader(clientid, clientsecret)
+            },
+            sslClientProfile: sslclientprofile,
+            data: encodeURI(`grant_type=client_credentials&scope=${scope}`)
+        }
+
+
+ hm.current.set('x-token-source', tokenSource);
+  hm.current.set('x-access-token-expires-in', Math.max((tokenInfo.exp || 0) - now, -1));
+
+
+
+if (options.data) {
+      urlopen.open(options, (error, response) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        response.readAsJSON((error, data) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+
+
+
+ 
 				
 =============
 
@@ -241,25 +258,7 @@ session.output.write(outerJSON);
 			
 	</xsl:template>
 	-----
-<xsl:variable name="bin">
-				<xsl:choose>
-					<xsl:when test="contains(/object/message,$FakeManagerM99)"><xsl:value-of select="substring-before(/object/message,$FakeManagerM99)"/><xsl:value-of select="$ManagerM99"/><xsl:value-of select="substring-after(/object/message,$FakeManagerM99)"/></xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="/object/message"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:variable>	
-			
-		<xsl:variable name="msg">					
-			<xsl:variable name="binaryMsg">
-				<xsl:value-of select="substring($bin, $XMITOffset)"/>
-			</xsl:variable>
-			<xsl:variable name="b64Msg">
-				<xsl:copy-of select="dp:radix-convert($binaryMsg, 16, 64)"/>
-			</xsl:variable>		
-			<xsl:variable name="result" select="dp:parse($b64Msg, 'base-64')"/>
-			<xsl:copy-of select="$result"/>
-		</xsl:variable>
+
 ---
 curl --url "http://127.0.0.1:7783" --data "{"userpass":"$userpass","method":"electrum","coin":"KMD","ipaddr":"electrum1.cipig.net","port":10001}"
 
@@ -336,14 +335,6 @@ session.input.readAsBuffer(function (error, buffer){
 	</xsl:template>
 --------
 
-<xsl:template match="/">
-		<dp:set-http-request-header name="'MQMD'" value="''"/>
-		<dp:set-http-request-header name="'MQRFH2'" value="''"/>
-		<dp:set-http-request-header name="'X-MQRFH2-Data-0'" value="''"/>
-		<dp:set-http-request-header name="'X-MQRFH2-Data-1'" value="''"/>
-		<xsl:copy-of select="."/>
-	</xsl:template>
-
 ----------
  <dp:set-http-request-header name="'content-type'" value="'application/xml'" />
         <dp:set-http-response-header name="'content-type'" value="'application/xml'" />
@@ -365,37 +356,7 @@ select="*[local-name()='item']"/>
   <xsl:value-of select="local-name(.)"/>
   <xsl:text>: </xsl:text>
 --------
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    version="1.0"
-    xmlns:xalan="http://xml.apache.org/xslt"
-    xmlns:dpedu="http://dpedu.ibm.com" >
-    <xsl:output method="html" />
 
-    <xsl:template match="/">
-<html>
-<head>
-<title>Address Information</title>
-</head>
-<body>
-<table width="80%" border="0">
-<tbody>
-<xsl:apply-templates select="//dpedu:name" />
-</tbody>
-</table>
-</body>
-</html>
-    </xsl:template>
-    
-    <xsl:template match="dpedu:name">  	
-	    
-	    <xsl:choose>
-				<xsl:when test="dpedu:title/text()='Mr.' and dpedu:firstName/text()='John' and dpedu:lastName/text()='Doe'">
-		<tr>
-			<td width="20%">Name</td>
-			<td width="80%"></td>
-		</tr>
-		<tr>
 ==============
 var urlopen = require ('urlopen');
 var hm = require('header-metadata');
@@ -429,24 +390,6 @@ urlopen.open (options, function (error, response) {
 });
 
 -------------
-
-/ Parse the JWE representation to extract the serialized\
-                \ values for\r\n            // the components of the JWE.  Returns\
-                \ an instance of JWEObject\r\n            // through which you can\
-                \ access the JWE content.\r\n            var jweObj = jose.parse(jweCompactObj);\r\
-                \n            console.error('JSON.stringify(jweObj) : ' + JSON.stringify(jweObj));\r\
-                \n\r\n            // Set key configuration object to process the encrypted\
-                \ key\r\n            var sharedkey = JSON.parse(apim.getvariable('shared-key01'));\r\
-                \n            jweObj.setKey(jwk.toBuffer(sharedkey));\r\n        \
-                \    \r\n            // The decrypt will only be attempted if key\
-                \ has been specified\r\n            jose.createJWEDecrypter(jweObj).decrypt(function(error,\
-                \ plaintext) {\r\n                if (error) {\r\n               \
-                \     // An error occurred during the decrypt process and is passed\
-                \ back\r\n                    // via the error parameter since .decrypt\
-                \ is an asynchronous call\r\n                    // write the error\
-                \ to the output context\r\n                    session.reject(error);\r\
-                \n                    return;\r\n                } else {\r\n    \
-                \                // since the decryption was successful you can write\
 
 ==========
 Section 7. Test the JSON serialized JWE generation
@@ -569,31 +512,6 @@ session.output.write(someJSON);
 }
 */
 -------------------
-
-		//print current headers
-		var hm = require('header-metadata');
-		console.debug("Current headers %j", hm.current.headers);
-		
-		//print service variables
-		console.debug("Input size is:" + sm.inputSize );
-		console.debug("Inbound URL:" + sm.getVar('var://service/URL-in') );
-		
-		//print input JSON message
-		console.debug("JSON Request is %s", queryparms);
-	}
-// construct SOAP request message
-session.output.write(
-	"<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" "
-	+ "xmlns:fly=\"http://www.ibm.com/datapower/FLY/BaggageService/\">" 
-	+ "<soapenv:Header/>"
-	+ "<soapenv:Body>"
- 	+ "<fly:BaggageStatusRequest>"
-       	+ "<fly:refNumber>" + refNo + "</fly:refNumber>"
-       	+ "<fly:lastName>" + lastName + "</fly:lastName>"
-   	+ "</fly:BaggageStatusRequest>"
-  	+ "</soapenv:Body>"
-	+ "</soapenv:Envelope>"
-	);
 
 ---------
   <xsl:output method="xml"/>
