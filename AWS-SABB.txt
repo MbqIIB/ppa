@@ -64,6 +64,48 @@ if (statuscode == '200') {
 
 ----------
 
+
+/*
+This Gateway Script to find book quantity. Name taken from URI
+*/
+var sm = require('service-metadata'), hm = require('header-metadata'), urlopen = require('urlopen');
+var uri = sm.getVar('var://service/URI');
+var uriSplit = uri.split("/");
+var bookName = uriSplit[1];
+function getBook(books, bookName) {
+for (var i = 0; i < books.length; i++) {
+if (books[i]['name'] == bookName) {
+return books[i]
+}
+}
+return null;
+}
+function getTimeStamp() {
+var d = new Date();
+return d.toISOString();
+}
+console.debug("Getting Book Quantity for bookName = " + bookName);
+urlopen.open("local:///books.json", function(error, response) {
+if (error) {
+console.debug("urlopen error: " + JSON.stringify(error));
+} else {
+console.debug("urlopen response.statusCode = " + response.statusCode);
+response.readAsJSON(function(error, books) {
+if (error) {
+session.output.write("readAsJSSON error: "
++ JSON.stringify(error));
+} else {
+var book = getBook(books['books'], bookName);
+if (book) {
+var bookQuantity = {};
+bookQuantity.book = book['name'];
+bookQuantity.quantity = book['quantity'];
+bookQuantity.dateTime = getTimeStamp();
+session.output.write(JSON.stringify(bookQuantity, null, '\t'));
+}
+
+-----------
+
 Calculate signature( Signature) AccessKey,: SecretKey123456789,: 123456789 ::
 
     SecretKey = "123456789"
