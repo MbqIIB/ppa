@@ -4,6 +4,26 @@ https://dinochiesa.github.io/hmachash/index.html
 https://github.com/ksgerastenok/datapower/blob/f5e258dc24e344e899e5f64eb53845e2eded166b/logger/log.header.xsl
 --------
 
+<xsl:when test="((not(count(dp:parse(./text())) = 0)))">
+
+
+<dp:serialize select="./*" omit-xml-decl="yes"/>
+
+
+<!--dp:input-mapping href="local:///ffd/base-64.ffd" type="ffd"/-->
+
+
+<xsl:when test="((dp:responding()))">
+
+<xsl:value-of select="dp:variable('var://service/URL-in')"/>
+<xsl:value-of select="dp:variable('var://service/URL-out')"/>
+
+
+<xsl:element name="Body">
+					<xsl:copy-of select="dp:binary-encode($vCALL/result/binary/node())"/>
+				</xsl:element
+---------=====
+
 var hm = require('header-metadata');
 var nxPrefix = 'man';
 var nameSpaceSuffix = 'JSONTOSOAP'
