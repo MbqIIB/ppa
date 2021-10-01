@@ -3,7 +3,13 @@ https://github.com/BrettPitt/raspiiot/blob/6e88bc1589257a71bb4d61c0eb2d1fac43b25
 https://dinochiesa.github.io/hmachash/index.html
 https://github.com/ksgerastenok/datapower/blob/f5e258dc24e344e899e5f64eb53845e2eded166b/logger/log.header.xsl
 https://github.com/ksgerastenok/datapower/blob/f5e258dc24e344e899e5f64eb53845e2eded166b/domain/functions.xsl
+https://github.com/szesto/datapower-router/blob/72160b36cf14005e327f4df12821daa13e33638b/local/router/oauth-client-config.js
 --------
+
+// set authorization header
+        hm.current.set('Authorization', 'Bearer ' + json.access_token);
+        console.error(`${tr} bearer token azn header: ${hm.current.get('Authorization')}`);
+	---------
 
 <xsl:when test="((not(count(dp:parse(./text())) = 0)))">
 
