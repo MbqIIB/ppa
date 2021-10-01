@@ -1,7 +1,7 @@
 https://github.com/BrettPitt/raspiiot/blob/6e88bc1589257a71bb4d61c0eb2d1fac43b25dc6/device/index.js
 ---------
 https://dinochiesa.github.io/hmachash/index.html
-
+https://github.com/ksgerastenok/datapower/blob/f5e258dc24e344e899e5f64eb53845e2eded166b/logger/log.header.xsl
 --------
 
 var hm = require('header-metadata');
